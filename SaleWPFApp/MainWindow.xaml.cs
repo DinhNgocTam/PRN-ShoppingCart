@@ -33,6 +33,10 @@ namespace SaleWPFApp
             this.memberRepository = _memberRepository;
             this.orderRepository = _orderRepository;
         }
+        public MainWindow()
+        {
+
+        }
 
         public void resetFormLogin()
         {
