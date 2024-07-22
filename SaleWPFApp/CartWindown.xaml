@@ -1,0 +1,64 @@
+﻿<Window x:Class="SaleWPFApp.CartWindown"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleWPFApp"
+        mc:Ignorable="d"
+        Title="Cart" Height="450" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary Source="StyleResource.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="White">
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Margin="0 0 10 0" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" FontSize="10" Margin="0"  Content="Required Date"/>
+                        <DatePicker Name="RequiredDate" Height="25"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" FontSize="10" Margin="0"  Content="Shipped Date"/>
+                        <DatePicker Name="ShippedDate" Height="25"></DatePicker>
+                    </StackPanel>
+                </StackPanel>
+                <Button Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="10 10" Click="Button_Checkout">Checkout</Button>
+            </StackPanel>
+            <Grid>
+                <DataGrid MaxHeight="400" x:Name="dgData" AutoGenerateColumns="False"
+          Width="auto" Grid.Column="0"
+          SelectionChanged="DataGrid_SelectionChanged" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+          ScrollViewer.CanContentScroll="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ProductId" Width="200" Binding="{Binding Path=ProductId}"/>
+                        <DataGridTextColumn Header="ProductName" Width="200" Binding="{Binding Path=Product.ProductName}"/>
+                        <DataGridTextColumn Header="UnitPrice" Width="200" Binding="{Binding Path=UnitPrice}"/>
+                        <DataGridTextColumn Header="Discount" Width="100" Binding="{Binding Path=Discount}"/>
+                        <DataGridTemplateColumn Header="Quantity" Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Button Tag="{Binding ProductId}" Width="20" Click="Button_Plus">+</Button>
+                                        <TextBlock Text="{Binding Quantity}" Margin="5 0 5 0"></TextBlock>
+                                        <Button Tag="{Binding ProductId}" Width="20" Click="Button_Minus">-</Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Action" Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="Button_Remove" Tag="{Binding ProductId}" Style="{StaticResource ResourceKey=btnPrimary}" Width="100">Remove</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <StackPanel Margin="10 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock FontSize="20" Margin="0 0 10 0">Total:</TextBlock>
+                <TextBlock FontSize="20" x:Name="TxtBoxTotalPrice"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
